@@ -49,10 +49,35 @@ app.get('/weather', (request, response) => {
 
 });
 
+app.get('/yelp', (request, response) => {
+
+  const currentCity = request.query.data;
+  const url = `https://api.yelp.com/v3/businesses/search?location=${currentCity.location}`;
+
+  superagent.get(url)
+    .set('Authorization', `Bearer ${process.env.YELP_API_KEY}`)
+    .then(data => {
+
+      response.send(data.body);
+    })
+    .catch(error => {
+
+      console.error(error);
+      response.send(error).status(500);
+
+    });
+});
+
 //404 all unwanted extentions
 app.get('*', (request, responce) => {
   responce.status(404);
 });
+
+/**
+ * End of Path Functions
+ * 
+ * Start Helper Functions
+ */
 
 function City(location, data) {
 
@@ -71,13 +96,3 @@ function Forcast(day) {
 
 }
 
-function retirveData(url) {
-  superagent.get(url)
-    .then(data => {
-      console.log(data.body);
-      return data.body;
-    })
-    .catch(error => {
-      return error;
-    });
-}
