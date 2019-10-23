@@ -7,13 +7,13 @@ The implantation of API keys into our server code
 **Version**: 1.1.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+Provide a dashboard that provides info about the location that the user inputs.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+By creating a server that can call various APIs that collects information on various aspects of the city.
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+Node.js that handles different URL calls - each returning unique dataset from different APIs.
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
@@ -21,8 +21,8 @@ The implantation of API keys into our server code
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->
+Authors: Chris Stanley and Ting Luo
+Various APIs documents. 
 
 Feature 1 Add .map()
 Estamation: 20min
@@ -40,4 +40,10 @@ Fearure 3 Add Weather API
 Estamation: 30min
 Start: 10:10
 End: 10:35
+Actual: 25min
+
+Fearure 4 Add Trails API
+Estamation: 30min
+Start: 12:50
+End: 1:15
 Actual: 25min
