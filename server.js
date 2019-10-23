@@ -50,33 +50,34 @@ app.get('/weather', (request, response) => {
 });
 
 
-app.get('/yelp', (request, response) => {
+// app.get('/yelp', (request, response) => {
 
-  const currentCity = request.query.data;
-  const url = `https://api.yelp.com/v3/businesses/search?location=${currentCity.location}`;
+//   const currentCity = request.query.data;
+//   const url = `https://api.yelp.com/v3/businesses/search?location=${currentCity.location}`;
 
-  superagent.get(url)
-    .set('Authorization', `Bearer ${process.env.YELP_API_KEY}`)
-    .then(data => {
+//   superagent.get(url)
+//     .set('Authorization', `Bearer ${process.env.YELP_API_KEY}`)
+//     .then(data => {
 
-      response.send(data.body); 
-    })
-    .catch(error => {
+//       response.send(data.body);
+//     })
+//     .catch(error => {
 
-      console.error(error);
-      response.send(error).status(500);
+//       console.error(error);
+//       response.send(error).status(500);
 
-    });
-});
+//     });
+// });
 
 //Create an array of the trails and return that to the webpage
 app.get('/trails', (request, response) => {
+
   const currentCity = request.query.data;
-  const url = `https://www.hikingproject.com/data/get-trails?lat=${currentCity.latitude}&lon=${currentCity.longitude}&maxDistance=10&key=${process.env.TRAILS_API_KEY}`;
+  console.log(process.env.TRAILS_API_KEY);
+  const url = `https://www.hikingproject.com/data/get-trails?lat=${currentCity.latitude}&lon=${currentCity.longitude}&maxDistance=10&key=${process.env.TRAIL_API_KEY}`;
 
   superagent.get(url)
     .then(data => {
-      console.log(data.body)
       response.send(data.body.trails.map(trail => new Trail(trail)));
 
     })
@@ -125,7 +126,7 @@ function Trail(trailData) {
   this.summary = trailData.summary;
   this.trail_url = trailData.url;
   this.conditions = trailData.conditionStatus;
-  let space = trailData.conditionDate.indexOf(' ')
+  let space = trailData.conditionDate.indexOf(' ');
   this.condition_date = trailData.conditionDate.slice(0,space);
   this.condition_time = trailData.conditionDate.slice(space);
 }
