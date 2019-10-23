@@ -28,22 +28,24 @@ app.get('/location', (request, response) => {
 });
 
 //Create an array of the weather and return that to the webpage
-app.get('/weather', (request, responce) => {
+app.get('/weather', (request, response) => {
 
-  try {
+  const currentCity = request.query.data;
+  const url = `https://api.darksky.net/forecast/${process.env.WEATHER_API_KEY}/${currentCity.latitude},${currentCity.longitude}`;
 
-    const data = require('./data/darksky.json');
+  superagent.get(url)
+    .then(data => {
 
-    const forcastList = data.daily.data.map(dailyWeather => new Forcast(dailyWeather));
+      const forcastList = data.body.daily.data.map(dailyWeather => new Forcast(dailyWeather));
+      response.send(forcastList);
 
-    responce.send(forcastList);
+    })
+    .catch(error => {
 
-  } catch (error) {
+      console.error(error);
+      response.send(error).status(500);
 
-    console.error(error);
-    responce.status(500).send('Server Error');
-
-  }
+    });
 
 });
 
